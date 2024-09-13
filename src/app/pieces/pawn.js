@@ -13,23 +13,32 @@ export default class Pawn {
     />
   }
   canEat(pieceToEat) {
-    console.log(pieceToEat)
-    console.log(this)    
-    return pieceToEat.numberOfPLayer !== this.numberOfPLayer && (this.numberOfPLayer === 1 ?
-      (
-        this.pos.y + 1 === pieceToEat.pos.y && this.pos.x + 1 === pieceToEat.pos.x ||
-        this.pos.y + 1 === pieceToEat.pos.y && this.pos.x - 1 === pieceToEat.pos.x
-      ) :
-      (
-        this.pos.y - 1 === pieceToEat.pos.y && this.pos.x + 1 === pieceToEat.pos.x ||
-        this.pos.y - 1 === pieceToEat.pos.y && this.pos.x - 1 === pieceToEat.pos.x
-      ))
+    return pieceToEat.numberOfPLayer !== this.numberOfPLayer
   }
 
-  canMove(y, x) {
-    return this.numberOfPLayer === 1 ?
-      this.pos.x === x && this.pos.y + 1 === y :
-      this.pos.x === x && this.pos.y - 1 === y
+  canMove(y, x, playerTurn, board) {
+    if (board[y][x]) {
+      return (playerTurn === this.numberOfPLayer &&
+        (this.numberOfPLayer === 1 ?
+          (
+            this.pos.y + 1 === y && this.pos.x + 1 === x ||
+            this.pos.y + 1 === y && this.pos.x - 1 === x
+          ) :
+          (
+            this.pos.y - 1 === y && this.pos.x + 1 === x ||
+            this.pos.y - 1 === y && this.pos.x - 1 === x
+          )
+        )
+      )
+    } else {
+        return (
+          (playerTurn === this.numberOfPLayer && (
+            this.numberOfPLayer === 1 ?
+              this.pos.x === x && this.pos.y + 1 === y :
+              this.pos.x === x && this.pos.y - 1 === y
+          )
+          ))
+    }    
   }
 
   updatePos(newPos) {
