@@ -19,6 +19,7 @@ module.exports = {
         xd: "rgb(0,0,0)",  
         asasd: "#999",
         thisIsDevelop: "#f3e4f9",        
+        anotherDevelop: "rgb(23,54,33)",
       },      
     },
   },
