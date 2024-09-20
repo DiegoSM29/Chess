@@ -16,7 +16,9 @@ module.exports = {
         primary: "#060608",
         secondary: "#0092ca",
         tertiary: "#f4f4f5",   
-        xd: "rgb(0,0,0)"   
+        xd: "rgb(0,0,0)",  
+        asasd: "#999",
+        cambioGit: "#f3e4f9"   
       },      
     },
   },
