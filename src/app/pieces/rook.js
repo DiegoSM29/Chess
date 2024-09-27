@@ -13,10 +13,23 @@ export default class Rook {
   canMove(y, x, playerTurn, board) {    
     if (playerTurn === this.numberOfPLayer && this.pos.y === y && this.pos.x !== x) {
       let minorX = Math.min(this.pos.x, x) + 1;
-      let largestX = Math.max(this.pos.x, x);      
+      let largestX = Math.max(this.pos.x, x);
       return !board[y].slice(minorX, largestX).some(e => e);       
     } else if (playerTurn === this.numberOfPLayer && this.pos.x === x && this.pos.y !== y) {
-
+      let minorY = Math.min(this.pos.y, y) + 1;
+      let largestY = Math.max(this.pos.y, y);
+      // let isThereSomePiece = board.map(e => {
+      //   e = e.filter((piece,ga) => ga === x ? piece : null);
+      //   return e;
+      // });      
+      let isThereSomePiece = board.map(e => {
+        e = e.filter((piece,posPiece) => posPiece === x ? e : null);
+        return e;
+      });
+      // console.log(minorY, largestY);
+      // console.log(isThereSomePiece.flat(Infinity));
+      // console.log(isThereSomePiece.flat(Infinity).slice(minorY, largestY));
+      return !isThereSomePiece.flat(Infinity).slice(minorY, largestY).some(e => e);
     } else {
       return false
     }
