@@ -13,17 +13,17 @@ export default class Bishop {
     let largestY = Math.max(this.pos.y, y);
     let minorX = Math.min(this.pos.x, x) + 1;
     let largestX = Math.max(this.pos.x, x);
-    if (largestX - minorX === largestY - minorY) {
+    if (largestX - minorX === largestY - minorY && playerTurn === this.numberOfPLayer) {
       let otherList = board.slice(minorY, largestY);
-      otherList = otherList.map((e, i) => {
-        e = e.slice(minorX, largestX);
+      otherList = otherList.map((row, indexY) => {
+        let rows = row.slice(minorX, largestX);
         if (          
           (this.pos.x > x && this.pos.y < y) ||
           (this.pos.x < x && this.pos.y > y)
         ) {
-          return e.filter((p, o) => i + o === e.length - 1);
+          return rows.filter((p, indexX) => indexY + indexX === row.length - 1);
         }
-        return e.filter((p, o) => i === o);
+        return rows.filter((p, indexX) => indexY === indexX);
       });
       return !otherList.flat(Infinity).some(e => e);
     }
