@@ -4,7 +4,7 @@ export default class Rook {
   constructor(numberOfPLayer) {
     this.numberOfPLayer = numberOfPLayer
     this.name = "Torre";
-    // this.initialPos = initialPos;  
+    this.pos = 0;
     this.image = <Image src={numberOfPLayer === 1 ? "/images/TorreBlanca.jpg" : "/images/TorreNegra.jpg"} alt="torre" width={55} height={55} />
   }
   canEat(pieceToEat) {
