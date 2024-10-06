@@ -13,7 +13,7 @@ const ChessBoard = () => {
   const board = useSelector((state) => state.board.initialBoard);
   const dispatch = useDispatch();
   const [pieceSelected, setPieceSelected] = useState(null);
-  const [positionSelected, setPositionSelected] = useState(null);
+  const [positionSelected, setPositionSelected] = useState(null);  
 
   const updateBoard = (y, x) => {
     const currentPiece = board[y][x];

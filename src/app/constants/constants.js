@@ -46,11 +46,11 @@ export const initialBoard = [
   [rook1Player1, knight1Player1, bishop1Player1, kingPlayer1, queenPlayer1, bishop2Player1, knight2Player1, rook2Player1],
   [pawn1Player1, pawn2Player1, pawn3Player1, pawn4Player1, pawn5Player1, pawn6Player1, pawn7Player1, pawn8Player1],
   [null, null, null, null, null, null, null, null,],
-  [null, null, null, null, null, null, null, rook1Player2],
-  [null, null, null, null, null, null, null, null,],
-  [null, null, null, null, null, null, null, null,],  
+  [null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null],  
   [pawn1Player2, pawn2Player2, pawn3Player2, pawn4Player2, pawn5Player2, pawn6Player2, pawn7Player2, pawn8Player2],
-  [null, knight1Player2, bishop1Player2, kingPlayer2, queenPlayer2, bishop2Player2,knight2Player2, rook2Player2],
+  [rook1Player2, knight1Player2, bishop1Player2, kingPlayer2, queenPlayer2, bishop2Player2,knight2Player2, rook2Player2],
 ] 
 
 export const gameModes = [
