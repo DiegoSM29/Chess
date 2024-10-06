@@ -16,7 +16,10 @@ module.exports = {
         primary: "#060608",
         secondary: "#0092ca",
         tertiary: "#f4f4f5",   
-        xd: "rgb(0,0,0)"   
+        xd: "rgb(0,0,0)",  
+        asasd: "#999",
+        thisIsDevelop: "#f3e4f9",        
+        anotherDevelop: "rgb(23,54,33)",
       },      
     },
   },

@@ -4,8 +4,7 @@ export default class Knight {
   constructor(numberOfPLayer){
     this.name = "Caballo";
     this.numberOfPLayer = numberOfPLayer;
-    this.pos = 0;
-    // this.initialPos = initialPos;
+    this.pos = 0;    
     this.image = <Image src={numberOfPLayer === 1 ? "/images/CaballoBlanco.png" : "/images/CaballoNegro.png"} alt="torre" width={55} height={55}/>   
   }
   canEat(pieceToEat) {
