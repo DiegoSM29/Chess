@@ -17,18 +17,11 @@ export default class Rook {
       return !board[y].slice(minorX, largestX).some(e => e);       
     } else if (playerTurn === this.numberOfPLayer && this.pos.x === x && this.pos.y !== y) {
       let minorY = Math.min(this.pos.y, y) + 1;
-      let largestY = Math.max(this.pos.y, y);
-      // let isThereSomePiece = board.map(e => {
-      //   e = e.filter((piece,ga) => ga === x ? piece : null);
-      //   return e;
-      // });      
+      let largestY = Math.max(this.pos.y, y);           
       let isThereSomePiece = board.map(e => {
         e = e.filter((piece,posPiece) => posPiece === x ? e : null);
         return e;
-      });
-      // console.log(minorY, largestY);
-      // console.log(isThereSomePiece.flat(Infinity));
-      // console.log(isThereSomePiece.flat(Infinity).slice(minorY, largestY));
+      });      
       return !isThereSomePiece.flat(Infinity).slice(minorY, largestY).some(e => e);
     } else {
       return false
