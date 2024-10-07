@@ -12,19 +12,18 @@ export default class Bishop {
     let largestY = Math.max(this.pos.y, y);
     let minorX = Math.min(this.pos.x, x) + 1;
     let largestX = Math.max(this.pos.x, x);
-    if (largestX - minorX === largestY - minorY && playerTurn === this.numberOfPLayer) {      
+    if (largestX - minorX === largestY - minorY && playerTurn === this.numberOfPLayer) {
       let otherList = board.slice(minorY, largestY);
       otherList = otherList.map((row, indexY) => {
         let subList = row.slice(minorX, largestX);
-        if(          
-            (this.pos.x > x && this.pos.y < y) ||
-            (this.pos.x < x && this.pos.y > y)
-          ) {                    
+        if (
+          (this.pos.x > x && this.pos.y < y) ||
+          (this.pos.x < x && this.pos.y > y)
+        ) {
           return subList.filter((p, indexX) => indexY + indexX === subList.length - 1);
-        }        
+        }
         return subList.filter((p, indexX) => indexY === indexX);
       });
-      console.log()
       return !otherList.flat(Infinity).some(e => e);
     }
     return false;
