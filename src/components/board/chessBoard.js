@@ -6,16 +6,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { movePiece, eatPiece } from "@/app/redux/slices/boardSlice";
 
 const ChessBoard = () => {
-
-  // const [board, setBoard] = useState(initialBoard);
-  // const count = useSelector((state) => state.counter.count);
   const [playerTurn, setPlayerTurn] = useState(1);
   const board = useSelector((state) => state.board.initialBoard);
   const dispatch = useDispatch();
   const [pieceSelected, setPieceSelected] = useState(null);
   const [positionSelected, setPositionSelected] = useState(null);  
 
-  const updateBoard = (y, x) => {
+  const updateBoard = (y, x) => {    
     const currentPiece = board[y][x];
     if (currentPiece && !pieceSelected) {
       setPieceSelected(currentPiece);

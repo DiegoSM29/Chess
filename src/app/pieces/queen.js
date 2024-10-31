@@ -2,12 +2,16 @@ import Image from "next/image";
 
 export default class Queen {
   constructor(numberOfPLayer) {
-    this.name = "Reyna";
+    this.name = "Queen";
     this.numberOfPLayer = numberOfPLayer;
-    // this.initialPos = initialPos;
+    this.pos = 0;
     this.image = <Image src={numberOfPLayer === 1 ? "/images/ReinaBlanca.png" : "/images/ReinaNegra.png"} alt="torre" width={65} height={65} />
   }
+
   canMove(y, x, playerTurn, board) {
+    if (this.pos.y === y && this.pos.x === x){
+      return;
+    } 
     let minorY = Math.min(this.pos.y, y) + 1;
     let largestY = Math.max(this.pos.y, y);
     let minorX = Math.min(this.pos.x, x) + 1;
@@ -40,6 +44,7 @@ export default class Queen {
   changePos(newPos) {
     this.pos = newPos;
   }
+
   canEat(pieceToEat) {
     return pieceToEat.numberOfPLayer !== this.numberOfPLayer
   }

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default class Pawn {
   constructor(numberOfPLayer) {
-    this.name = "Peón";
+    this.name = "Pawn";
     this.numberOfPLayer = numberOfPLayer
     this.pos = 0;
     this.image = <Image
@@ -31,14 +31,14 @@ export default class Pawn {
         )
       )
     } else {
-        return (
-          (playerTurn === this.numberOfPLayer && (
-            this.numberOfPLayer === 1 ?
-              this.pos.x === x && this.pos.y + 1 === y :
-              this.pos.x === x && this.pos.y - 1 === y
-          )
-          ))
-    }    
+      return (
+        (playerTurn === this.numberOfPLayer && (
+          this.numberOfPLayer === 1 ?
+            this.pos.x === x && this.pos.y + 1 === y :
+            this.pos.x === x && this.pos.y - 1 === y
+        )
+        ))
+    }
   }
 
   updatePos(newPos) {

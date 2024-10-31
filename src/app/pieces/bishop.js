@@ -4,10 +4,14 @@ export default class Bishop {
   constructor(numberOfPLayer) {
     this.numberOfPLayer = numberOfPLayer;
     this.pos = 0;
-    this.name = "Alfil";
+    this.name = "Bishop";
     this.image = <Image src={numberOfPLayer === 1 ? "/images/AlfilBlanco.png" : "/images/AlfilNegro.png"} alt="Alfil" width={32} height={32} />
   }
+  
   canMove(y, x, playerTurn, board) {
+    if (this.pos.y === y && this.pos.x === x){
+      return;
+    } 
     let minorY = Math.min(this.pos.y, y) + 1;
     let largestY = Math.max(this.pos.y, y);
     let minorX = Math.min(this.pos.x, x) + 1;
@@ -32,6 +36,7 @@ export default class Bishop {
   changePos(newPos) {
     this.pos = newPos;
   }
+
   canEat(pieceToEat) {
     return pieceToEat.numberOfPLayer !== this.numberOfPLayer;
   }
