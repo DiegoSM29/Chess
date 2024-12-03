@@ -1,11 +1,11 @@
 import Image from "next/image";
 
 export default class Queen {
-  constructor(numberOfPLayer) {
+  constructor(numberOfPlayer) {
     this.name = "Queen";
-    this.numberOfPLayer = numberOfPLayer;
+    this.numberOfPlayer = numberOfPlayer;
     this.pos = 0;
-    this.image = <Image src={numberOfPLayer === 1 ? "/images/ReinaBlanca.png" : "/images/ReinaNegra.png"} alt="torre" width={65} height={65} />
+    this.image = <Image src={numberOfPlayer === 1 ? "/images/ReinaBlanca.png" : "/images/ReinaNegra.png"} alt="torre" width={65} height={65} />
   }
 
   canMove(y, x, playerTurn, board) {
@@ -16,7 +16,7 @@ export default class Queen {
     let largestY = Math.max(this.pos.y, y);
     let minorX = Math.min(this.pos.x, x) + 1;
     let largestX = Math.max(this.pos.x, x);
-    if (largestX - minorX === largestY - minorY && playerTurn === this.numberOfPLayer) {
+    if (largestX - minorX === largestY - minorY && playerTurn === this.numberOfPlayer) {
       let otherList = board.slice(minorY, largestY);
       otherList = otherList.map((row, indexY) => {
         let subList = row.slice(minorX, largestX);
@@ -29,9 +29,9 @@ export default class Queen {
         return subList.filter((p, indexX) => indexY === indexX);
       });
       return !otherList.flat(Infinity).some(e => e);
-    } else if (playerTurn === this.numberOfPLayer && this.pos.y === y && this.pos.x !== x) {
+    } else if (playerTurn === this.numberOfPlayer && this.pos.y === y && this.pos.x !== x) {
       return !board[y].slice(minorX, largestX).some(e => e);
-    } else if (playerTurn === this.numberOfPLayer && this.pos.x === x && this.pos.y !== y) {
+    } else if (playerTurn === this.numberOfPlayer && this.pos.x === x && this.pos.y !== y) {
       let isThereSomePiece = board.map(e => {
         e = e.filter((piece, posPiece) => posPiece === x ? e : null);
         return e;
@@ -46,6 +46,6 @@ export default class Queen {
   }
 
   canEat(pieceToEat) {
-    return pieceToEat.numberOfPLayer !== this.numberOfPLayer
+    return pieceToEat.numberOfPlayer !== this.numberOfPlayer
   }
 }
