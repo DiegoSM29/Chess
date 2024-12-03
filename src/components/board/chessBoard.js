@@ -6,14 +6,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { movePiece, eatPiece } from "@/app/redux/slices/boardSlice";
 
 const ChessBoard = () => {
-
-  // const [board, setBoard] = useState(initialBoard);
-  // const count = useSelector((state) => state.counter.count);
   const [playerTurn, setPlayerTurn] = useState(1);
   const board = useSelector((state) => state.board.initialBoard);
   const dispatch = useDispatch();
   const [pieceSelected, setPieceSelected] = useState(null);
   const [positionSelected, setPositionSelected] = useState(null);  
+
+  const getCurrentKing = (board) => {
+    return board.map(row => row.filter(piece => piece?.name === "King" && piece.numberOfPlayer === playerTurn)).flat(Infinity)[0]
+  }
+
+  const simulateMove = (y, x, previousI, previousJ, newPiece) => {
+    const newBoard = board.map(row => [...row]);
+    newBoard[y][x] = newPiece;
+    newBoard[previousI][previousJ] = null;
+    newPiece.pos.x = x;
+    newPiece.pos.y = y;
+    return newBoard;
+  }
 
   const updateBoard = (y, x) => {
     const currentPiece = board[y][x];
@@ -22,19 +32,28 @@ const ChessBoard = () => {
       setPositionSelected([y, x]);
     } else if (!currentPiece && pieceSelected) {
       if (pieceSelected.canMove(y, x, playerTurn, board)) {
-        const [previousI, previousJ] = positionSelected;
-        dispatch(movePiece({ y, x, previousI, previousJ, pieceSelected }))
-        setPlayerTurn(prevTurn => prevTurn === 1 ? 2 : 1);
+        const [previousI, previousJ] = positionSelected;        
+        const newBoard = simulateMove(y, x, previousI, previousJ, pieceSelected);
+        const currentKing = getCurrentKing(newBoard);
+        const kingInCheck = currentKing.checkMate(currentKing.pos.y, currentKing.pos.x, newBoard).some(e => e);        
+        if (!kingInCheck) {          
+          dispatch(movePiece({ y, x, previousI, previousJ, pieceSelected }))
+          setPlayerTurn(prevTurn => prevTurn === 1 ? 2 : 1);
+        }
       }
       setPieceSelected(null);
       setPositionSelected(null);
-    }
-    else if (currentPiece && pieceSelected) {
+    } else if (currentPiece && pieceSelected) {
       if (pieceSelected.canMove(y, x, playerTurn, board) && pieceSelected.canEat(currentPiece)) {
         const [previousI, previousJ] = positionSelected;
-        dispatch(eatPiece(currentPiece))
-        dispatch(movePiece({ y, x, previousI, previousJ, pieceSelected }))
-        setPlayerTurn(prevTurn => prevTurn === 1 ? 2 : 1);
+        const newBoard = simulateMove(y, x, previousI, previousJ, pieceSelected);
+        const currentKing = getCurrentKing(newBoard);
+        const kingInCheck = currentKing.checkMate(currentKing.pos.y, currentKing.pos.x, newBoard).some(e => e);
+        if (!kingInCheck) {
+          dispatch(eatPiece(currentPiece))
+          dispatch(movePiece({ y, x, previousI, previousJ, pieceSelected }))
+          setPlayerTurn(prevTurn => prevTurn === 1 ? 2 : 1);
+        }
       };
       setPieceSelected(null);
       setPositionSelected(null);
@@ -47,15 +66,15 @@ const ChessBoard = () => {
         {board.map((ele, y) => (
           ele.map((square, x) => {
             square ? square.pos = { x, y } : null;
-            let xd;
+            let piecePicked;            
             if (pieceSelected && pieceSelected.pos.x === x && pieceSelected.pos.y === y) {
-              xd = true
+              piecePicked = true
             } else {
-              xd = false
-            }
+              piecePicked = false
+            }            
             return (
               <button key={`${x}-${y}`} onClick={() => updateBoard(y, x)}>
-                <Square y={y} x={x} xdGa={xd}>
+                <Square y={y} x={x} piecePicked={piecePicked}>
                   {square ? square.image : null}
                 </Square>
               </button>
